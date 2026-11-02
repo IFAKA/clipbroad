@@ -1,0 +1,81 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "ClipBroadMac-arm64-apple-macosx26.0-debug.exe": ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe>"]
+  "ClipBroadMac-arm64-apple-macosx26.0-debug.module": ["<ClipBroadMac-arm64-apple-macosx26.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe>","<ClipBroadMac-arm64-apple-macosx26.0-debug.module>"]
+  "test": ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe>","<ClipBroadMac-arm64-apple-macosx26.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/faka/code/projects/cross/clipbroad/mac/Sources/ClipBroadMac/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac":
+    is-mutated: true
+commands:
+  "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac-entitlement.plist"]
+    description: "Write auxiliary file /Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac-entitlement.plist"
+
+  "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/faka/code/projects/cross/clipbroad/mac/Sources/ClipBroadMac/main.swift"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/sources"]
+    description: "Write auxiliary file /Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/sources"
+
+  "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swift.o"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.product/Objects.LinkFileList"
+
+  "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<ClipBroadMac-arm64-apple-macosx26.0-debug.exe>":
+    tool: phony
+    inputs: ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    outputs: ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe>"]
+
+  "<ClipBroadMac-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swift.o","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/Modules/ClipBroadMac.swiftmodule"]
+    outputs: ["<ClipBroadMac-arm64-apple-macosx26.0-debug.module>"]
+
+  "C.ClipBroadMac-arm64-apple-macosx26.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swift.o","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.product/Objects.LinkFileList"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/ClipBroadMac"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug","-o","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac","-module-name","ClipBroadMac","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_ClipBroadMac_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/Modules/ClipBroadMac.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.ClipBroadMac-arm64-apple-macosx26.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac-entitlement.plist"]
+    outputs: ["<ClipBroadMac-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/ClipBroadMac"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac-entitlement.plist","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac"]
+
+  "C.ClipBroadMac-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/faka/code/projects/cross/clipbroad/mac/Sources/ClipBroadMac/main.swift","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/sources"]
+    outputs: ["/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swift.o","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/Modules/ClipBroadMac.swiftmodule"]
+    description: "Compiling Swift Module 'ClipBroadMac' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","ClipBroadMac","-emit-dependencies","-emit-module","-emit-module-path","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/Modules/ClipBroadMac.swiftmodule","-output-file-map","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/output-file-map.json","-incremental","-c","@/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/sources","-I","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j12","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","ClipBroadMac_main","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","mac"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/faka/code/projects/cross/clipbroad/mac/Sources/ClipBroadMac/","/Users/faka/code/projects/cross/clipbroad/mac/Package.swift","/Users/faka/code/projects/cross/clipbroad/mac/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

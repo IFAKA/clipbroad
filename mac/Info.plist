@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>ClipBroad</string>
+	<key>CFBundleExecutable</key>
+	<string>ClipBroadMac</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.clipbroad.mac</string>
+	<key>CFBundleName</key>
+	<string>ClipBroad</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>ClipBroad uses your local Wi-Fi network to sync the clipboard with your Android phone.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_clipbroad._tcp</string>
+	</array>
+</dict>
+</plist>

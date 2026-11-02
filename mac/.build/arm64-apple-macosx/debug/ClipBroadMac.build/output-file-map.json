@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/master.swiftdeps"
+  },
+  "/Users/faka/code/projects/cross/clipbroad/mac/Sources/ClipBroadMac/main.swift": {
+    "dependencies": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.d",
+    "object": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swift.o",
+    "swiftmodule": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.swiftdeps",
+    "diagnostics": "/Users/faka/code/projects/cross/clipbroad/mac/.build/arm64-apple-macosx/debug/ClipBroadMac.build/main.dia"
+  }
+}
